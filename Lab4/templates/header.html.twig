@@ -1,0 +1,20 @@
+{% if user is not empty %}
+    {% if is_granted("ROLE_ADMIN") %}
+        <nav class="fixed-top navbar navbar-light p-0" style="background-color: burlywood">
+            <p class="navbar-brand"><a class="text-dark" href="\">Lab 4</a></p>
+            <p class="navbar-brand text-center">  <a class="text-dark" href="/admin">Административное окно</a></p>
+            <p class="navbar-brand">{{ user }},<a class="text-dark" href="/logout" > Выход </a></p>
+        </nav>
+    {% else %}
+        <nav class="fixed-top navbar navbar-light p-0" style="background-color: burlywood">
+            <p class="navbar-brand"><a class="text-dark" href="\">Lab 4</a></p>
+            <p class="navbar-brand">{{ user }},<a class="text-dark" href="/logout" > Выход </a></p>
+        </nav>
+    {% endif %}
+{% else%}
+    <nav class="fixed-top navbar navbar-light p-0" style="background-color: burlywood">
+        <p class="navbar-brand"><a  class="x20" href="\">Lab 4</a> </p>
+        <p class="navbar-brand"><a class="x20" href="/login">Авторизация</a>
+            <a  class="m-4 x20" href="/register">Регистрация</a></p>
+    </nav>
+{% endif %}

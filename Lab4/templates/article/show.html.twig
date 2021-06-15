@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+    {{ include('header.html.twig') }}
+<div class="container p-2 mt-5">
+    <div class="border border-dark mb-3 rounded">
+        <nav class="navbar navbar-light bg-light">
+            <span class="navbar-text">
+                <h3 class="mb-0"><a  class="font-weight-bold" href="{{ path('article_show', {'id': article.id}) }}">{{ article.name }}</a></h3>
+            </span>
+            <div class="d-flex justify-content-end">
+                <div class="p-2">{{ article.date|date('H:i:s Y-m-d') }}</div>
+                <div class="p-2"> Просмотров: {{ article.countVisit}}</div>
+            </div>
+        </nav>
+        <div class="jumbotron p-1 h-auto" >
+            <div class="container">
+                <p>{{ article.annotation }}</p>
+                <p>{{ article.text }}</p>
+                <div class="d-flex justify-content-end">
+                    <div class="p-2"> <span class="text-muted">Комментариев: {{ article.countReview}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        {% if reviews is not empty %}
+            <h2>Комментарии</h2>
+            {% for review in reviews %}
+                <nav class="navbar navbar-light bg-info">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2">{{review.emailUser}}</div>
+                    </div>
+                </nav>
+                <div class="jumbotron p-1 h-auto" >
+                    <div class="container">
+                        <p>{{ review.text }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div >
+                <p class="text-center text-warning">Нету отзывов!</p>
+            </div>
+        {% endif %}
+    </div>
+    {% if user is not empty %}
+    <h2>Добавление комментария</h2>
+    {{ form_start(form) }}
+    <div class="container p-2">
+        <div class="form-group">
+            {{ form_widget(form.text, {'attr': {'class': 'form-control'}} ) }}
+        </div>
+        <button type="submit" class="btn btn-success w-100">{{ button_label|default('Добавить комментарий')}}</button>
+        {{ form_end(form) }}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

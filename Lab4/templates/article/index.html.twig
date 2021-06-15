@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('header.html.twig') }}
+    <div class="container p-2 mt-5">
+        {% if articles is not empty %}
+            <div class="d-flex flex-column p-2">
+                <div class="container">
+                    {% for article in articles %}
+                        <div class="border border-dark mb-3 rounded">
+                            <nav class="navbar navbar-light bg-light">
+                            <span class="navbar-text">
+                                <h3 class="mb-0"><a  class="font-weight-bold" href="{{ path('article_show', {'id': article.id}) }}">{{ article.name }}</a></h3>
+                            </span>
+                                <div class="d-flex justify-content-end">
+                                    <div class="p-2">{{ article.date|date('H:i:s Y-m-d') }}</div>
+                                    <div class="p-2"> Просмотров: {{ article.countVisit}}</div>
+                                </div>
+                            </nav>
+                            <div class="jumbotron p-1 h-auto" >
+                                <div class="container">
+                                    <p>{{ article.annotation }}</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="p-2"> <a href="{{ path('article_show', {'id': article.id}) }}">Продолжить чтение...</a></div>
+                                        <div class="p-2"> <span class="text-muted">Комментариев: {{ article.countReview}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div >
+                <p class="text-center text-warning">Нет статей!</p>
+            </div>
+        {% endif %}
+    </div>
+    <div class="text-center d-flex justify-content-center">
+        {{ knp_pagination_render(articles) }}
+    </div>
+{% endblock %}

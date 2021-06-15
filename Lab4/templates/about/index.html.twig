@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if user is not empty %}
+        {% if is_granted("ROLE_ADMIN") %}
+        <nav class="fixed-top navbar navbar-light p-0" style="background-color: burlywood">
+            <p class="navbar-brand"><a class="text-dark" href="\">Lab 4</a></p>
+            <p class="navbar-brand text-center">  <a class="text-dark" href="/admin">Административное окно</a></p>
+            <p class="navbar-brand">{{ user }},<a class="text-dark" href="/logout" > Выход </a></p>
+        </nav>
+        {% else %}
+            <nav class="fixed-top navbar navbar-light p-0" style="background-color: burlywood">
+                <p class="navbar-brand"><a class="text-dark" href="\">Lab 4</a></p>
+                <p class="navbar-brand">{{ user }},<a class="text-dark" href="/logout" > Выход </a></p>
+            </nav>
+        {% endif %}
+    {% else%}
+        <nav class="fixed-top navbar navbar-light p-0" style="background-color: burlywood">
+            <p class="navbar-brand"><a  class="x20" href="">Lab 4</a> </p>
+            <p class="navbar-brand"><a class="x20" href="/login">Авторизация</a>
+                <a  class="m-4 x20" href="/register">Регистрация</a></p>
+        </nav>
+    {% endif %}
+
+    <div class="container mt-5">
+        {% if articles is not empty %}
+            <div class="d-flex flex-column p-2">
+                <div class="container">
+                {% for article in articles %}
+                    <nav class="navbar navbar-light bg-light">
+                        <span class="navbar-text">
+                            <h3 class="mb-0"><a  class="font-weight-bold" href="">{{ article.name }}</a></h3>
+                        </span>
+                        <div class="d-flex justify-content-end">
+                            <div class="p-2">{{ article.date|date('H:i:s Y-m-d') }}</div>
+                            <div class="p-2"> Просмотров: {{ article.countVisit}}</div>
+                        </div>
+                    </nav>
+                    <div class="jumbotron p-1 h-auto" >
+                        <div class="container">
+                            <p>{{ article.annotation }}</p>
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2"> <a href="">Продолжить чтение...</a></div>
+                                <div class="p-2"> <span class="text-muted">Комментариев: {{ article.countReview}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div >
+                <p class="text-center text-warning">Нет статей!</p>
+            </div>
+        {% endif %}
+    </div>
+    <div class="text-center d-flex justify-content-center">
+        {{ knp_pagination_render(articles) }}
+    </div>
+{% endblock %}

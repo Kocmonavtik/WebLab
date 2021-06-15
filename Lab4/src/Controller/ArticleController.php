@@ -79,7 +79,7 @@ class ArticleController extends AbstractController
             $article->setCountReview($article->getReviews()->count()+1);
             $entityManager->persist($article);
             $entityManager->flush();
-            $this->redirectToRoute('article_show', array('id'=>$article->getId()));
+            return $this->redirectToRoute('article_show', array('id'=>$article->getId()));
             //$this->redirect('/article/'.$article->getId());
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controller;
+
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class TestController extends AbstractController
 {
     /**
-     * @Route("/", name="startpage")
+     * @Route("/test", name="startpage")
      *@param BookRepository $bookRep
      *@param Request $request
      *

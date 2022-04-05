@@ -1,0 +1,22 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        # failure_transport: failed
+
+        transports:
+            book:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queue_name: book
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            # failed: 'doctrine://default?queue_name=failed'
+            # sync: 'sync://'
+            comment:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN1)%'
+                options:
+                    queue_name: comment
+        routing:
+            'App\Message\Book': book
+            'App\Message\Comment': comment
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async

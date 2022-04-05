@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message index{% endblock %}
+
+{% block body %}
+    {{ include ('book/header.html.twig') }}
+    <h1 class="mt-5">Список полученных сообщений</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Название книги</th>
+            <th>Описание</th>
+            <th>Автор комментария</th>
+            <th>Комментарий</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for message in messages %}
+            <tr>
+                <td>{{ message.NameBook }}</td>
+                <td>{{ message.descriptionBook }}</td>
+                <td>{{ message.CreatorName }}</td>
+                <td>{{ message.CommentText }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
